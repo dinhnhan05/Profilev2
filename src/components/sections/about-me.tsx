@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Image from "next/image";
 import avtProfile from "../../../public/images/Avatar-profile.jpeg";
 import Tag from "@/components/data-display/tag";
@@ -6,9 +7,23 @@ import Typography from "@/components/general/typography";
 import Link from "@/components/navigation/link";
 import { EXTERNAL_LINKS } from "@/lib/data";
 import Reavel from "@/hooks/Reavel";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import { Fancybox } from "@fancyapps/ui";
 import spaceGrotesk from "../general/space-grotesk-font";
 
 const AboutMeSection = () => {
+  // Khởi tạo Fancybox khi component render trên client-side
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      Fancybox.bind("[data-fancybox]", {});
+    }
+
+    // Cleanup Fancybox khi component unmount
+    return () => {
+      Fancybox.destroy();
+    };
+  }, []);
+
   return (
     <Container className="bg-gray-50" id="about">
       <div className="self-center">
@@ -20,12 +35,14 @@ const AboutMeSection = () => {
         <div className="flex justify-center md:order-first md:justify-end">
           <Reavel>
             <div className="relative h-[380px] w-[320px] md:h-[460px] md:w-[380px] lg:h-[520px] lg:w-[440px]">
-              <Image
-                src={avtProfile}
-                alt="Ảnh đại diện"
-                className="absolute z-10 h-[360px] w-[280px] border-8 border-gray-50 max-md:left-5 md:right-0 md:top-0 md:h-[420px] md:w-[340px] lg:h-[480px] lg:w-[400px]"
-                style={{ objectFit: "cover" }}
-              ></Image>
+              <a href="/images/Avatar-profile.jpeg" data-fancybox="gallery">
+                <Image
+                  src={avtProfile}
+                  alt="Ảnh đại diện"
+                  className="absolute z-10 h-[360px] w-[280px] border-8 border-gray-50 max-md:left-5 md:right-0 md:top-0 md:h-[420px] md:w-[340px] lg:h-[480px] lg:w-[400px]"
+                  style={{ objectFit: "cover" }}
+                />
+              </a>
               <div className="absolute h-[360px] w-[320px] border-8 border-transparent bg-gray-200 max-md:top-5 md:bottom-0 md:left-0 md:h-[420px] md:w-[340px] lg:h-[480px] lg:w-[400px]"></div>
             </div>
           </Reavel>
@@ -44,12 +61,16 @@ const AboutMeSection = () => {
 
           <Reavel>
             <Typography className={`${spaceGrotesk.className} text-lg`}>
-              
-              Tôi là Nguyễn Đình Nhân, sinh năm 2005, đến từ Gia Lai, Việt Nam. Tôi đam mê lập trình và công nghệ, luôn khao khát học hỏi để phát triển kỹ năng của mình. Ngoài ra, tôi cũng rất thích đá bóng, xem phim và chơi game. Mặc dù chưa có nhiều kinh nghiệm tự tạo dự án, tôi tin rằng mỗi thử thách sẽ giúp tôi tiến xa hơn trên con đường lập trình.
+              Tôi là Nguyễn Đình Nhân, sinh năm 2005, đến từ Gia Lai, Việt Nam.
+              Tôi đam mê lập trình và công nghệ, luôn khao khát học hỏi để phát
+              triển kỹ năng của mình. Ngoài ra, tôi cũng rất thích đá bóng, xem
+              phim và chơi game. Mặc dù chưa có nhiều kinh nghiệm tự tạo dự án,
+              tôi tin rằng mỗi thử thách sẽ giúp tôi tiến xa hơn trên con đường
+              lập trình.
             </Typography>
           </Reavel>
 
-<Reavel>
+          <Reavel>
             <Typography
               variant="h5"
               className={`${spaceGrotesk.className} text-lg`}
@@ -57,13 +78,16 @@ const AboutMeSection = () => {
               Châm ngôn:
             </Typography>
           </Reavel>
-          
+
           <Reavel>
-            <Typography className={`${spaceGrotesk.className} text-lg text-zinc-700`}>
-              &quot;Cuộc đời giống như một chiếc bánh pizza, có thể không hoàn hảo, nhưng vẫn ngon nếu bạn có đủ phô mai😆&quot;
+            <Typography
+              className={`${spaceGrotesk.className} text-lg`}
+            >
+              &quot;Cuộc đời giống như một chiếc bánh pizza, có thể không hoàn
+              hảo, nhưng vẫn ngon nếu bạn có đủ phô mai😆&quot;
             </Typography>
           </Reavel>
-          
+
           <Reavel>
             <Typography
               variant={"h6"}
@@ -74,17 +98,19 @@ const AboutMeSection = () => {
           </Reavel>
 
           <Reavel>
-          <Typography className={`${spaceGrotesk.className} text-lg`}>          <span>{" "}
-              <Link
-                noCustomization
-                externalLink
-                withUnderline
-                href={EXTERNAL_LINKS.Gmail}
-              >
-                kiryosdinhnhan@hotmail.com
-              </Link>{" "}</span>
+            <Typography className={`${spaceGrotesk.className} text-lg`}>
+              <span>
+                <Link
+                  noCustomization
+                  externalLink
+                  withUnderline
+                  href={EXTERNAL_LINKS.Gmail}
+                >
+                  kiryosdinhnhan@hotmail.com
+                </Link>{" "}
+              </span>
             </Typography>
-            </Reavel>
+          </Reavel>
         </div>
       </div>
     </Container>

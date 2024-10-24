@@ -1,5 +1,8 @@
+import { useEffect } from "react";
 import Image from "next/image";
 import { MapPin } from "lucide-react";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import { Fancybox } from "@fancyapps/ui";
 import avtProfile from "../../../public/images/Avatar-profile.jpeg";
 import downImg from "../../../public/images/down-circle.gif";
 import SocialIcons from "@/components/data-display/social-icons";
@@ -7,11 +10,22 @@ import Typography from "@/components/general/typography";
 import Container from "@/components/layout/container";
 import Reavel from "@/hooks/Reavel";
 import ScrollAnimation from "@/hooks/scrollAnimation";
-import nunito from "../general/nunito-font"
+import nunito from "../general/nunito-font";
 import spaceGrotesk from "../general/space-grotesk-font";
 
-
 const HeroSection = () => {
+  // Khởi tạo Fancybox khi component render trên client-side
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      Fancybox.bind("[data-fancybox]", {});
+    }
+
+    // Cleanup Fancybox khi component unmount
+    return () => {
+      Fancybox.destroy();
+    };
+  }, []);
+
   return (
     <Container id="home">
       <div className="flex md:mt-16 md:pt-3 flex-col gap-12 md:flex-row">
@@ -20,12 +34,14 @@ const HeroSection = () => {
           <ScrollAnimation>
             <Reavel>
               <div className="relative h-[300px] w-[280px] md:h-[360px] md:w-[320px]">
-                <Image
-                  src={avtProfile}
-                  alt="Ảnh đại diện"
-                  className="absolute z-10 h-[280px] w-[240px] border-8 border-gray max-md:left-5 md:left-0 md:top-0 md:h-[320px] md:w-[280px]"
-                  style={{ objectFit: "cover" }}
-                ></Image>
+                <a href="/images/Avatar-profile.jpeg" data-fancybox="gallery">
+                  <Image
+                    src={avtProfile}
+                    alt="Ảnh đại diện"
+                    className="absolute z-10 h-[280px] w-[240px] border-8 border-gray max-md:left-5 md:left-0 md:top-0 md:h-[320px] md:w-[280px]"
+                    style={{ objectFit: "cover" }}
+                  />
+                </a>
                 <div className="absolute h-[280px] w-[280px] border-8 border-transparent bg-gray-200 max-md:top-5 md:bottom-0 md:right-0 md:h-[320px] md:w-[280px]"></div>
               </div>
             </Reavel>
@@ -38,21 +54,18 @@ const HeroSection = () => {
             <Reavel>
               <Typography variant="h1" className={`${nunito.className}`}>
                 Nguyễn Đình Nhân{" "}
-                <span className="inline-flex pt-1.5" style={{ gap: '5px' }}>
-                  <Image 
-                    src={downImg} 
-                    alt="Web" 
-                    width={40} 
-                    height={40}
-                  />
-                  
+                <span className="inline-flex pt-1.5" style={{ gap: "5px" }}>
+                  <Image src={downImg} alt="Web" width={40} height={40} />
                 </span>
-
               </Typography>
             </Reavel>
             <Reavel>
               <Typography className={`${spaceGrotesk.className} text-lg mt-3`}>
-                Nguyễn Đình Nhân - một người yêu thích lập trình và công nghệ. Mặc dù chưa tự tạo dự án nào, tôi đã sử dụng mã nguồn từ cộng đồng để tạo ra portfolio này, đánh dấu bước đầu trong hành trình khám phá lập trình của mình. Tôi hy vọng sẽ phát triển thêm kỹ năng và tạo ra các sản phẩm độc đáo trong tương lai❗😁
+                Nguyễn Đình Nhân - một người yêu thích lập trình và công nghệ.
+                Mặc dù chưa tự tạo dự án nào, tôi đã sử dụng mã nguồn từ cộng
+                đồng để tạo ra portfolio này, đánh dấu bước đầu trong hành trình
+                khám phá lập trình của mình. Tôi hy vọng sẽ phát triển thêm kỹ
+                năng và tạo ra các sản phẩm độc đáo trong tương lai❗😁
               </Typography>
             </Reavel>
           </div>
@@ -60,7 +73,7 @@ const HeroSection = () => {
             <Reavel>
               <div className="flex gap-2">
                 <MapPin className="stroke-gray-600" />
-                <Typography className={`${spaceGrotesk.className} text-lg `}>
+                <Typography className={`${spaceGrotesk.className} text-lg`}>
                   From: Gia Lai, VietNam 🇻🇳
                 </Typography>
               </div>
@@ -77,7 +90,7 @@ const HeroSection = () => {
               </Reavel>
               <Reavel>
                 <Typography className={`${spaceGrotesk.className} text-lg`}>
-                  Đang hoạt động 
+                  Đang hoạt động
                 </Typography>
               </Reavel>
             </div>
