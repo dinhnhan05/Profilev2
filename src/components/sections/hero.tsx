@@ -14,13 +14,12 @@ import nunito from "../general/nunito-font";
 import spaceGrotesk from "../general/space-grotesk-font";
 
 const HeroSection = () => {
-  // Khởi tạo Fancybox khi component render trên client-side
+  
   useEffect(() => {
     if (typeof window !== "undefined") {
       Fancybox.bind("[data-fancybox]", {});
     }
 
-    // Cleanup Fancybox khi component unmount
     return () => {
       Fancybox.destroy();
     };
