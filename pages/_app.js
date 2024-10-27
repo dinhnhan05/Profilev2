@@ -1,5 +1,6 @@
 // pages/_app.js
-import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/react';
+
 import Script from 'next/script';
 
 function MyApp({ Component, pageProps }) {
@@ -26,7 +27,7 @@ function MyApp({ Component, pageProps }) {
                 }}
             />
             {/* Vercel Analytics */}
-            <VercelAnalytics />
+            <Analytics />
             <Component {...pageProps} />
         </>
     );
