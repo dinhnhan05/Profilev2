@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { Analytics } from '@vercel/analytics/react';
 
 import "./globals.css";
 import Header from "@/components/layout/header";
@@ -55,7 +54,6 @@ export default function RootLayout({
         </Providers>
       </body>
       <GoogleAnalytics gaId={"G-FRKB4JVG1L"} />
-      <Analytics />
     </html>
   );
 }
