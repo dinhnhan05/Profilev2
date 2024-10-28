@@ -38,7 +38,7 @@ const ContactSection = () => {
       toast.success(`${type === "email" ? "Email" : "Số điện thoại"} đã được sao chép!`, {
         id: toastId, 
         duration: 2000,
-        position: "top-right",
+        position: "top-center",
       });
 
       setTimeout(() => {
@@ -51,7 +51,7 @@ const ContactSection = () => {
       setCopiedValueType(null);
       toast.error("Không thể sao chép!", {
         duration: 2000,
-        position: "top-right",
+        position: "top-center",
       });
       setIsLoading(false);
     }
