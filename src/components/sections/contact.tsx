@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Mail, Phone } from "lucide-react";
-import { toast } from 'react-toastify';
+import { Copy, Mail, Phone, Loader } from "lucide-react";
+import { toast } from 'react-hot-toast';
 import SocialIcons from "@/components/data-display/social-icons";
 import Tag from "@/components/data-display/tag";
 import IconButton from "@/components/general/icon-button";
@@ -12,8 +12,7 @@ import useWindowSize from "@/hooks/use-window-size";
 import { copyTextToClipboard } from "@/lib/utils";
 import Reavel from "@/hooks/Reavel";
 import spaceGrotesk from "../general/space-grotesk-font";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Toaster } from 'react-hot-toast';
 
 let email = "kiryosdinhnhan@hotmail.com";
 let phone = "+84 397 920 591";
@@ -24,39 +23,43 @@ const ContactSection = () => {
   const { width } = useWindowSize();
   const [isCopied, setIsCopied] = useState(false);
   const [copiedValueType, setCopiedValueType] = useState<CopyValue | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCopyClick = async (text: string, type: CopyValue) => {
+    setIsLoading(true); 
     try {
       await copyTextToClipboard(text);
       setIsCopied(true);
       setCopiedValueType(type);
 
+      const toastId = `${type}-toast`; 
+      toast.dismiss(toastId); 
+
       toast.success(`${type === "email" ? "Email" : "Số điện thoại"} đã được sao chép!`, {
+        id: toastId, 
+        duration: 2000,
         position: "top-right",
-        autoClose: 2000,
       });
 
       setTimeout(() => {
         setIsCopied(false);
         setCopiedValueType(null);
-      }, 1500);
+        setIsLoading(false); 
+      }, 2000); 
     } catch (error) {
       setIsCopied(false);
       setCopiedValueType(null);
       toast.error("Không thể sao chép!", {
+        duration: 2000,
         position: "top-right",
-        autoClose: 2000,
       });
+      setIsLoading(false);
     }
   };
 
   return (
     <Container id="contact">
-      <ToastContainer 
-        position="top-right" 
-        autoClose={2000} 
-        newestOnTop
-      />
+      <Toaster />
       <div className="flex flex-col items-center gap-4">
         <div className="self-center">
           <Tag
@@ -89,7 +92,11 @@ const ContactSection = () => {
                 showTooltip={isCopied && copiedValueType === "email"}
                 tooltipText="Copied!"
               >
-                <Copy />
+                {isLoading && copiedValueType === "email" ? (
+                  <Loader className="animate-spin h-5 w-5" /> // Hiển thị icon loading
+                ) : (
+                  <Copy />
+                )}
               </IconButton>
             </div>
           </Reavel>
@@ -106,7 +113,11 @@ const ContactSection = () => {
                 showTooltip={isCopied && copiedValueType === "phone"}
                 tooltipText="Copied!"
               >
-                <Copy />
+                {isLoading && copiedValueType === "phone" ? (
+                  <Loader className="animate-spin h-5 w-5" />
+                ) : (
+                  <Copy />
+                )}
               </IconButton>
             </div>
           </Reavel>
