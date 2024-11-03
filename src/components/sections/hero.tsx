@@ -3,8 +3,7 @@ import Image from "next/image";
 import { MapPin } from "lucide-react";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 import { Fancybox } from "@fancyapps/ui";
-import avtProfile from "../../../public/images/Avatar-profile.jpeg";
-import downImg from "../../../public/images/down-circle.gif";
+import avtProfile from "../../../public/images/header_image.jpeg";
 import SocialIcons from "@/components/data-display/social-icons";
 import Typography from "@/components/general/typography";
 import Container from "@/components/layout/container";
@@ -33,7 +32,7 @@ const HeroSection = () => {
           <ScrollAnimation>
             <Reavel>
               <div className="relative h-[300px] w-[280px] md:h-[360px] md:w-[320px]">
-                <a href="/images/Avatar-profile.jpeg" data-fancybox="gallery">
+                <a href="/images/header_image.jpeg" data-fancybox="gallery">
                   <Image
                     src={avtProfile}
                     alt="Ảnh đại diện"
@@ -52,11 +51,20 @@ const HeroSection = () => {
           <div className="flex flex-col gap-2">
             <Reavel>
               <Typography variant="h1" className={`${nunito.className}`}>
-                Nguyễn Đình Nhân{" "}
-                <span className="inline-flex pt-1.5" style={{ gap: "5px" }}>
-                  <Image src={downImg} alt="Web" width={40} height={40} />
-                </span>
+                Nguyễn Đình Nhân 
+                <br />
+                  <span
+                    style={{
+                      background: "linear-gradient(to right, #2e82ff, #8957ff)", // Màu gradient
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      marginRight: "8px", // Khoảng cách giữa chữ và ảnh
+                    }}
+                  >
+                    (he/him)
+                  </span>
               </Typography>
+
             </Reavel>
             <Reavel>
               <Typography className={`${spaceGrotesk.className} text-lg mt-3`}>
