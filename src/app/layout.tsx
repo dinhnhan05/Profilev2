@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-
 import "./globals.css";
 import Header from "@/components/layout/header";
 import { Providers } from "@/lib/providers";
@@ -49,7 +48,9 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          <main className="flex min-h-screen w-full flex-col">{children}</main>
+          <main className="flex min-h-screen w-full flex-col">
+            {children}
+          </main>
           <Footer />
         </Providers>
       </body>
