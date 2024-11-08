@@ -4,6 +4,7 @@ import Container from "@/components/layout/container";
 import ScrollAnimation from "@/hooks/scrollAnimation";
 import spaceGrotesk from "../general/space-grotesk-font";
 import TechDetail from "../data-display/tech-details";
+import Reavel from "@/hooks/Reavel";
 
 const SkillsSection = () => {
   return (
@@ -19,11 +20,13 @@ const SkillsSection = () => {
         </ScrollAnimation>
       </div>
 
+      <Reavel>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-4">
         {TECHNOLOGIES.map((technology, index) => (
           <TechDetail {...technology} key={index} />
         ))}
       </div>
+        </Reavel>
     </Container>
   );
 };
