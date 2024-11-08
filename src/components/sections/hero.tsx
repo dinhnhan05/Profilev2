@@ -91,10 +91,10 @@ const HeroSection = () => {
               <Reavel>
                 <div className="flex items-center justify-center">
                   {/* Chỉ một dấu chấm xanh cho trạng thái Đang hoạt động */}
-                  
+                  <AdminStatus />
                 </div>
               </Reavel>
-              <AdminStatus />
+              
 
           
           </div>
