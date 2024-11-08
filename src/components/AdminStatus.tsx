@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "@/lib/firebase";  // Đảm bảo rằng bạn đã cấu hình Firebase đúng
 import Typography from "@/components/general/typography";
 import spaceGrotesk from "@/components/general/space-grotesk-font";
 
@@ -10,41 +10,50 @@ function AdminStatus() {
   const [isOnline, setIsOnline] = useState(false);
 
   useEffect(() => {
-    const getStatus = async () => {
-      const docRef = doc(db, "adminStatus", "status");
-      const docSnap = await getDoc(docRef);
+    // Theo dõi thay đổi trạng thái admin trong Firestore
+    const docRef = doc(db, "adminStatus", "status");
 
+    // Sử dụng onSnapshot để theo dõi thay đổi trạng thái admin
+    const unsubscribe = onSnapshot(docRef, (docSnap) => {
       if (docSnap.exists()) {
         const data = docSnap.data();
+        
+        // Nếu admin đang online (isOnline = true), hiển thị "Đang hoạt động"
         if (data.isOnline) {
           setStatus("Đang hoạt động");
           setIsOnline(true);
         } else {
+          // Nếu admin không online, hiển thị thời gian hoạt động trước đó
           const timeAgo = calculateTimeAgo(data.lastActive.toDate());
           setStatus(`Hoạt động ${timeAgo}`);
           setIsOnline(false);
         }
       }
-    };
-
-    getStatus();
-
-    const handleUnload = () => {
-      updateDoc(doc(db, "adminStatus", "status"), {
-        isOnline: false,
-        lastActive: new Date(),
-      });
-    };
-
-    updateDoc(doc(db, "adminStatus", "status"), {
-      isOnline: true,
-      lastActive: new Date(),
     });
 
-    window.addEventListener("beforeunload", handleUnload);
-
-    return () => window.removeEventListener("beforeunload", handleUnload);
+    // Clean-up khi component bị unmount
+    return () => {
+      unsubscribe();
+    };
   }, []);
+
+  // Hàm tính thời gian đã qua kể từ khi admin không hoạt động
+  const calculateTimeAgo = (lastActive: Date) => {
+    const diff = Date.now() - lastActive.getTime();
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(months / 12);
+
+    if (years > 0) return `${years} năm trước`;
+    if (months > 0) return `${months} tháng trước`;
+    if (days > 0) return `${days} ngày trước`;
+    if (hours > 0) return `${hours} giờ trước`;
+    if (minutes > 0) return `${minutes} phút trước`;
+    return "vài giây trước";
+  };
 
   return (
     <div className="flex items-center gap-2">
@@ -67,23 +76,6 @@ function AdminStatus() {
       </Typography>
     </div>
   );
-}
-
-function calculateTimeAgo(lastActive: Date) {
-  const diff = Date.now() - lastActive.getTime();
-  const seconds = Math.floor(diff / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-  const months = Math.floor(days / 30);
-  const years = Math.floor(months / 12);
-
-  if (years > 0) return `${years} năm trước`;
-  if (months > 0) return `${months} tháng trước`;
-  if (days > 0) return `${days} ngày trước`;
-  if (hours > 0) return `${hours} giờ trước`;
-  if (minutes > 0) return `${minutes} phút trước`;
-  return "vài giây trước";
 }
 
 export default AdminStatus;
