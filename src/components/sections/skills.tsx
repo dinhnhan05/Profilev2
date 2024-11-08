@@ -22,11 +22,11 @@ const SkillsSection = () => {
 
       
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-4">
-       <Reveal>
+       <Reavel>
   {TECHNOLOGIES.map((technology, index) => (
     <TechDetail {...technology} key={index} />
   ))}
-</Reveal>
+</Reavel>
       </div>
         
     </Container>
