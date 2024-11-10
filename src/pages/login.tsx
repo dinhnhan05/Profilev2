@@ -31,7 +31,7 @@ const LoginPage = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/admin");  // Chuyển hướng đến trang Admin Dashboard khi đăng nhập thành công
-    } catch (error) {
+    } catch (error: unknown) {
   if (error instanceof Error) {
     console.error("Đăng nhập thất bại:", error.message);
     setError("Đăng nhập thất bại. Vui lòng kiểm tra email và mật khẩu.");
