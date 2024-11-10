@@ -7,15 +7,26 @@ import { auth } from "@/lib/firebase";  // Firebase auth config
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);  // Thêm trạng thái lỗi
+  const [loading, setLoading] = useState(false);  // Thêm trạng thái loading
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);  // Reset lỗi trước khi thử đăng nhập lại
+    setLoading(true);  // Bắt đầu trạng thái loading
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/admin/dashboard");  // Chuyển hướng sau khi đăng nhập thành công
-    } catch (error) {
-      console.error("Đăng nhập thất bại:", error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError("Đăng nhập thất bại: " + error.message);  // Hiển thị lỗi cho người dùng
+      } else {
+        setError("Đã xảy ra lỗi không xác định.");
+      }
+    } finally {
+      setLoading(false);  // Kết thúc trạng thái loading
     }
   };
 
@@ -36,7 +47,10 @@ const LoginPage = () => {
           placeholder="Mật khẩu" 
           required
         />
-        <button type="submit">Đăng nhập</button>
+        {error && <p className="error-message">{error}</p>}  {/* Hiển thị thông báo lỗi */}
+        <button type="submit" disabled={loading}>
+          {loading ? "Đang đăng nhập..." : "Đăng nhập"}
+        </button>
       </form>
     </div>
   );
