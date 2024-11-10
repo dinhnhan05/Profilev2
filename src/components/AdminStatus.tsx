@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";  // Đảm bảo rằng bạn đã cấu hình Firebase đúng
 import Typography from "@/components/general/typography";
 import spaceGrotesk from "@/components/general/space-grotesk-font";
@@ -55,6 +55,32 @@ function AdminStatus() {
     return "vài giây trước";
   };
 
+  // Hàm cập nhật trạng thái online/offline và lastActive trong Firestore
+  const updateAdminStatus = async (isOnline: boolean) => {
+    const docRef = doc(db, "adminStatus", "status");
+
+    // Cập nhật trạng thái online/offline và lastActive nếu admin offline
+    if (!isOnline) {
+      const currentTime = new Date();
+      await updateDoc(docRef, {
+        isOnline: false,
+        lastActive: currentTime,  // Cập nhật thời gian hiện tại vào lastActive
+      });
+    } else {
+      await updateDoc(docRef, {
+        isOnline: true,
+      });
+    }
+  };
+
+  // Hàm xử lý sự kiện khi admin online/offline
+  const handleOnlineStatusChange = () => {
+    const newStatus = !isOnline;
+    setIsOnline(newStatus);
+    setStatus(newStatus ? "Đang hoạt động" : "Đang offline");
+    updateAdminStatus(newStatus); // Cập nhật Firestore
+  };
+
   return (
     <div className="flex items-center gap-2">
       <div className="flex h-6 w-6 items-center justify-center">
@@ -74,6 +100,10 @@ function AdminStatus() {
       <Typography className={`${spaceGrotesk.className} text-lg`}>
         {status}
       </Typography>
+      {/* Thêm nút để thay đổi trạng thái của admin */}
+      <button onClick={handleOnlineStatusChange}>
+        {isOnline ? "Đăng xuất" : "Đăng nhập"}
+      </button>
     </div>
   );
 }
