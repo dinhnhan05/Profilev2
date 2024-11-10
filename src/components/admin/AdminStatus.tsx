@@ -1,29 +1,25 @@
+// src/components/admin/AdminStatus.tsx
 "use client";
-import { useEffect, useState } from "react";
-import { doc, onSnapshot, updateDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";  // Đảm bảo rằng bạn đã cấu hình Firebase đúng
-import Typography from "@/components/general/typography";
+import { useState, useEffect } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "@/lib/firebase"; // Cấu hình Firebase
+import Typography from "@/components/general/typography"; // Đảm bảo Typography được import đúng
 import spaceGrotesk from "@/components/general/space-grotesk-font";
 
-function AdminStatus() {
+const AdminStatus = () => {
   const [status, setStatus] = useState("Đang cập nhật...");
   const [isOnline, setIsOnline] = useState(false);
 
   useEffect(() => {
-    // Theo dõi thay đổi trạng thái admin trong Firestore
     const docRef = doc(db, "adminStatus", "status");
 
-    // Sử dụng onSnapshot để theo dõi thay đổi trạng thái admin
     const unsubscribe = onSnapshot(docRef, (docSnap) => {
       if (docSnap.exists()) {
         const data = docSnap.data();
-        
-        // Nếu admin đang online (isOnline = true), hiển thị "Đang hoạt động"
         if (data.isOnline) {
           setStatus("Đang hoạt động");
           setIsOnline(true);
         } else {
-          // Nếu admin không online, hiển thị thời gian hoạt động trước đó
           const timeAgo = calculateTimeAgo(data.lastActive.toDate());
           setStatus(`Hoạt động ${timeAgo}`);
           setIsOnline(false);
@@ -31,13 +27,11 @@ function AdminStatus() {
       }
     });
 
-    // Clean-up khi component bị unmount
     return () => {
       unsubscribe();
     };
   }, []);
 
-  // Hàm tính thời gian đã qua kể từ khi admin không hoạt động
   const calculateTimeAgo = (lastActive: Date) => {
     const diff = Date.now() - lastActive.getTime();
     const seconds = Math.floor(diff / 1000);
@@ -55,34 +49,9 @@ function AdminStatus() {
     return "vài giây trước";
   };
 
-  // Hàm cập nhật trạng thái online/offline và lastActive trong Firestore
-  const updateAdminStatus = async (isOnline: boolean) => {
-    const docRef = doc(db, "adminStatus", "status");
-
-    // Cập nhật trạng thái online/offline và lastActive nếu admin offline
-    if (!isOnline) {
-      const currentTime = new Date();
-      await updateDoc(docRef, {
-        isOnline: false,
-        lastActive: currentTime,  // Cập nhật thời gian hiện tại vào lastActive
-      });
-    } else {
-      await updateDoc(docRef, {
-        isOnline: true,
-      });
-    }
-  };
-
-  // Hàm xử lý sự kiện khi admin online/offline
-  const handleOnlineStatusChange = () => {
-    const newStatus = !isOnline;
-    setIsOnline(newStatus);
-    setStatus(newStatus ? "Đang hoạt động" : "Đang offline");
-    updateAdminStatus(newStatus); // Cập nhật Firestore
-  };
-
   return (
     <div className="flex items-center gap-2">
+      {/* Chấm trạng thái */}
       <div className="flex h-6 w-6 items-center justify-center">
         <span className="relative flex h-3 w-3">
           <span
@@ -97,15 +66,13 @@ function AdminStatus() {
           ></span>
         </span>
       </div>
-      <Typography className={`${spaceGrotesk.className} text-lg`}>
+
+      {/* Typography cho chữ "Hoạt động" */}
+      <Typography className={`${spaceGrotesk.className} text-lg`}> {/* Thêm font ở đây */}
         {status}
       </Typography>
-      {/* Thêm nút để thay đổi trạng thái của admin */}
-      <button onClick={handleOnlineStatusChange}>
-        {isOnline ? "Đăng xuất" : "Đăng nhập"}
-      </button>
     </div>
   );
-}
+};
 
 export default AdminStatus;

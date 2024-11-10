@@ -11,7 +11,7 @@ import Reavel from "@/hooks/Reavel";
 import ScrollAnimation from "@/hooks/scrollAnimation";
 import nunito from "../general/nunito-font";
 import spaceGrotesk from "../general/space-grotesk-font";
-import AdminStatus from "@/components/AdminStatus";
+import AdminStatus from "@/components/admin/AdminStatus";
 
 const HeroSection = () => {
   
