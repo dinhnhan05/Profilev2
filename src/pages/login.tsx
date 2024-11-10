@@ -1,11 +1,9 @@
-// src/pages/login.tsx
 "use client";
 
 import { useState, useEffect } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
-import { onAuthStateChanged } from "firebase/auth";  // Import onAuthStateChanged
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -29,13 +27,14 @@ const LoginPage = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");  // Đặt lại lỗi trước khi đăng nhập
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // Chuyển hướng đến trang Admin Dashboard khi đăng nhập thành công
-      router.push("/admin");
+      router.push("/admin");  // Chuyển hướng đến trang Admin Dashboard khi đăng nhập thành công
     } catch (error) {
-  console.error("Đăng nhập thất bại:", (error as Error).message);
-}
+      console.error("Đăng nhập thất bại:", (error as Error).message);
+      setError("Đăng nhập thất bại. Vui lòng kiểm tra email và mật khẩu.");  // Hiển thị lỗi thân thiện hơn cho người dùng
+    }
   };
 
   return (
@@ -60,7 +59,7 @@ const LoginPage = () => {
             required
           />
         </div>
-        {error && <p>{error}</p>}
+        {error && <p className="text-red-500">{error}</p>}  {/* Thêm lớp CSS cho màu chữ đỏ */}
         <button type="submit">Đăng nhập</button>
       </form>
     </div>
