@@ -32,15 +32,30 @@ const LoginPage = () => {
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/admin");  // Chuyển hướng đến trang Admin Dashboard khi đăng nhập thành công
     } catch (error) {
-  if (error instanceof Error) {
-    console.error("Đăng nhập thất bại:", error.message);
-    setError("Đăng nhập thất bại. Vui lòng kiểm tra email và mật khẩu.");
-  } else {
-    console.error("Đăng nhập thất bại:", error);
-    setError("Đã xảy ra lỗi không xác định.");
-  }
-}
-
+      if (error instanceof Error) {
+        console.error("Đăng nhập thất bại:", error.message);
+        setError("Đăng nhập thất bại. Vui lòng kiểm tra email và mật khẩu.");
+      } else if (error.code) {
+        // Firebase cung cấp mã lỗi, có thể bạn muốn hiển thị theo cách riêng cho từng mã lỗi
+        switch (error.code) {
+          case 'auth/invalid-email':
+            setError("Địa chỉ email không hợp lệ.");
+            break;
+          case 'auth/user-not-found':
+            setError("Không tìm thấy tài khoản với email này.");
+            break;
+          case 'auth/wrong-password':
+            setError("Mật khẩu không chính xác.");
+            break;
+          default:
+            setError("Đã xảy ra lỗi không xác định.");
+            break;
+        }
+      } else {
+        console.error("Đăng nhập thất bại:", error);
+        setError("Đã xảy ra lỗi không xác định.");
+      }
+    }
   };
 
   return (
