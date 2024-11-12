@@ -1,4 +1,3 @@
-
 import { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/layout/header";
@@ -44,6 +43,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="!scroll-smooth" suppressHydrationWarning>
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1641143754058043"
+          crossOrigin="anonymous"
+        ></script>
+      </head>
       <body
         className={`${InterFont.className} bg-gray text-gray-600 antialiased scroll-smooth`}
       >
