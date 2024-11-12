@@ -44,6 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="!scroll-smooth" suppressHydrationWarning>
       <head>
+        {/* Google AdSense Script */}
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1641143754058043"
@@ -56,6 +57,22 @@ export default function RootLayout({
         <Providers>
           <Header />
           <main className="flex min-h-screen w-full flex-col">
+            {/* Nội dung quảng cáo Google AdSense */}
+            <ins
+              className="adsbygoogle"
+              style={{ display: "block" }}
+              data-ad-client="ca-pub-1641143754058043"
+              data-ad-slot="6923084344"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+                `,
+              }}
+            />
             {children}
           </main>
           <Footer />
