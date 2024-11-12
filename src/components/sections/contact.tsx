@@ -15,7 +15,7 @@ import spaceGrotesk from "../general/space-grotesk-font";
 import { Toaster } from 'react-hot-toast';
 
 let email = "kiryosdinhnhan@hotmail.com";
-let phone = "+84 397 920 591";
+let phone = "+84 567 890 123";
 
 type CopyValue = "email" | "phone";
 
