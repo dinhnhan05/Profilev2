@@ -64,6 +64,8 @@ const LoginPage = () => {
         <title>Đăng nhập - Admin</title>
       </Head>
 
+<a href="/" className="absolute top-5 left-7 text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Quay về trang chủ</a> 
+      
       <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
         <form onSubmit={handleLogin} className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
           <h1 className="text-2xl font-bold text-center text-gray-900 mb-4">Đăng nhập vào Admin</h1>
