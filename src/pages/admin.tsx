@@ -109,6 +109,7 @@ const AdminPage = () => {
   if (loading) return <div className="text-center p-4">Đang tải...</div>;  // Hiển thị khi trang đang tải
 
   return (
+    <a href="/" className="absolute top-5 left-7 text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Quay về trang chủ</a> 
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-8">
       <h1 className="text-3xl font-bold text-gray-900 mb-6">Admin Dashboard</h1>
       <p className="text-lg text-gray-700 mb-4">{status}</p>
