@@ -106,24 +106,37 @@ const AdminPage = () => {
     }
   };
 
-  if (loading) return <div>Đang tải...</div>;  // Hiển thị khi trang đang tải
+  if (loading) return <div className="text-center p-4">Đang tải...</div>;  // Hiển thị khi trang đang tải
 
   return (
-    <div>
-      <h1>Admin Dashboard</h1>
-      <p>{status}</p>
-      <div>
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-8">
+      <h1 className="text-3xl font-bold text-gray-900 mb-6">Admin Dashboard</h1>
+      <p className="text-lg text-gray-700 mb-4">{status}</p>
+      <div className="space-x-4 mb-6">
         {/* Hai nút online và offline */}
-        <button onClick={handleOnlineClick} disabled={isOnline}>
-          Online
+        <button
+          onClick={handleOnlineClick}
+          disabled={isOnline}
+          className="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg disabled:bg-gray-400 transition duration-300"
+        >
+          Chế độ Online
         </button>
-        <button onClick={handleOfflineClick} disabled={!isOnline}>
-          Offline
+        <button
+          onClick={handleOfflineClick}
+          disabled={!isOnline}
+          className="px-6 py-2 bg-red-500 text-white font-semibold rounded-lg disabled:bg-gray-400 transition duration-300"
+        >
+         Chế độ Offline
         </button>
       </div>
       {/* Nút logout */}
       <div>
-        <button onClick={handleLogoutClick}>Logout</button>
+        <button
+          onClick={handleLogoutClick}
+          className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300"
+        >
+          Logout
+        </button>
       </div>
     </div>
   );

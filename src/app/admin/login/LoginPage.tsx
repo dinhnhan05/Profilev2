@@ -1,14 +1,15 @@
 // src/app/admin/login/LoginPage.tsx
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link"; // Import Link từ Next.js
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";  // Firebase auth config
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);  // Thêm trạng thái lỗi
-  const [loading, setLoading] = useState(false);  // Thêm trạng thái loading
+  const [error, setError] = useState<string | null>(null);  // Trạng thái lỗi
+  const [loading, setLoading] = useState(false);  // Trạng thái loading
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -32,7 +33,7 @@ const LoginPage = () => {
 
   return (
     <div className="login-container">
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} className="login-form">
         <input 
           type="email" 
           value={email} 
@@ -48,9 +49,15 @@ const LoginPage = () => {
           required
         />
         {error && <p className="error-message">{error}</p>}  {/* Hiển thị thông báo lỗi */}
-        <button type="submit" disabled={loading}>
+
+        <button type="submit" disabled={loading} className="login-button">
           {loading ? "Đang đăng nhập..." : "Đăng nhập"}
         </button>
+
+        {/* Sử dụng Link của Next.js để điều hướng */}
+        <p className="forgot-password">
+          <Link href="/forgot-password">Quên mật khẩu?</Link>
+        </p>
       </form>
     </div>
   );

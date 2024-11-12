@@ -29,6 +29,10 @@ export const NAV_LINKS = [
     label: "Liên hệ",
     href: "#contact",
   },
+  {
+    label: "Đăng nhập Admin",
+    href: "/admin",
+  },
 ];
 
 export const SOCIAL_LINKS = [
