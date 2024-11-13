@@ -30,7 +30,7 @@ export const NAV_LINKS = [
     href: "#contact",
   },
   {
-    label: "Đăng nhập Admin",
+    label: "Trang Quản Trị",
     href: "/admin",
   },
 ];
