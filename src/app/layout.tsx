@@ -5,6 +5,7 @@ import { Providers } from "@/lib/providers";
 import Footer from "@/components/layout/footer";
 import InterFont from "@/components/general/InterFont";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/react"; // Import Vercel Analytics
 
 const title = "Profile - Đình Nhân";
 const description = "Trang thông tin cá nhân của tôi";
@@ -52,6 +53,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <Analytics /> {/* Thêm Vercel Analytics ở đây */}
         </Providers>
       </body>
       <GoogleAnalytics gaId={"G-9D7D9TJ5FM"} />
