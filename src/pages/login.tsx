@@ -32,30 +32,37 @@ const LoginPage = () => {
   }, [router]);
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!isCaptchaValid) {
-      setError("Vui lòng xác minh rằng bạn không phải là robot.");
-      return;
+  e.preventDefault();
+
+  // Kiểm tra xem CAPTCHA đã được xác minh chưa
+  if (!isCaptchaValid) {
+    setError("Vui lòng xác minh rằng bạn không phải là robot.");
+    toast.error("Vui lòng xác minh CAPTCHA!"); // Thông báo lỗi
+    return;
+  }
+
+  // Reset thông báo lỗi và thành công
+  setError(null);
+  setMessage(null);
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    setMessage("Đăng nhập thành công!");
+    toast.success("Đăng nhập thành công!"); // Thông báo thành công
+    router.push("/admin");
+  } catch (error: any) {
+    if (error instanceof Error) {
+      console.error("Đăng nhập thất bại:", error.message);
+      setError("Đăng nhập thất bại. Vui lòng kiểm tra email và mật khẩu.");
+      toast.error("Đăng nhập thất bại. Vui lòng kiểm tra email và mật khẩu."); // Thông báo lỗi
+    } else {
+      console.error("Đăng nhập thất bại:", error);
+      setError("Đã xảy ra lỗi không xác định.");
+      toast.error("Đã xảy ra lỗi không xác định.");
     }
-    setError(null);
-    setMessage(null);
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      setMessage("Đăng nhập thành công!");
-      toast.success("Đăng nhập thành công!"); // Thông báo thành công
-      router.push("/admin");
-    } catch (error: any) {
-      if (error instanceof Error) {
-        console.error("Đăng nhập thất bại:", error.message);
-        setError("Đăng nhập thất bại. Vui lòng kiểm tra email và mật khẩu.");
-        toast.error("Đăng nhập thất bại. Vui lòng kiểm tra email và mật khẩu."); // Thông báo lỗi
-      } else {
-        console.error("Đăng nhập thất bại:", error);
-        setError("Đã xảy ra lỗi không xác định.");
-        toast.error("Đã xảy ra lỗi không xác định.");
-      }
-    }
-  };
+  }
+};
+
 
   const onCaptchaVerify = (token: string) => {
     if (token) {
