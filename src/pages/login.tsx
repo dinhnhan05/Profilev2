@@ -34,10 +34,16 @@ const LoginPage = () => {
   const handleLogin = async (e: React.FormEvent) => {
   e.preventDefault();
 
-  // Kiểm tra xem CAPTCHA đã được xác minh chưa
+  // Kiểm tra trạng thái CAPTCHA
   if (!isCaptchaValid) {
     setError("Vui lòng xác minh rằng bạn không phải là robot.");
-    toast.error("Vui lòng xác minh CAPTCHA!"); // Thông báo lỗi
+    toast.error("Vui lòng xác minh CAPTCHA!"); // Thông báo lỗi nếu chưa xác minh CAPTCHA
+    return;
+  }
+
+  // Nếu đang xác minh và bỏ chọn CAPTCHA
+  if (!isCaptchaValid && error === "Vui lòng xác minh rằng bạn không phải là robot.") {
+    toast.error("Vui lòng xác minh CAPTCHA lại!");
     return;
   }
 
@@ -64,14 +70,18 @@ const LoginPage = () => {
 };
 
 
+
   const onCaptchaVerify = (token: string) => {
-    if (token) {
-      setIsCaptchaValid(true);
-      setError(null);
-    } else {
-      setIsCaptchaValid(false);
-    }
-  };
+  if (token) {
+    setIsCaptchaValid(true);
+    setError(null); // Xóa lỗi nếu CAPTCHA đã xác minh
+  } else {
+    setIsCaptchaValid(false);
+    setError("Vui lòng xác minh rằng bạn không phải là robot.");
+    toast.error("Vui lòng xác minh CAPTCHA lại!"); // Thông báo yêu cầu xác minh lại
+  }
+};
+
 
   // Tự động ẩn Toast sau 3 giây
   useEffect(() => {
