@@ -6,7 +6,9 @@ import { db } from "@/lib/firebase";  // Cấu hình Firebase
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth"; // Import onAuthStateChanged
 import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";  // Đảm bảo rằng auth đã được cấu hình đúng trong firebase.ts
+import { toast } from 'react-hot-toast';
 import Link from "next/link"; // Import Link của Next.js
+import Head from 'next/head'; // Import Head để thay đổi tiêu đề trang
 
 const AdminPage = () => {
   const [status, setStatus] = useState("Đang cập nhật...");
@@ -89,13 +91,15 @@ const AdminPage = () => {
   const handleOnlineClick = () => {
     setIsOnline(true);
     setStatus("Đang hoạt động");
-    updateAdminStatus(true);  // Cập nhật trạng thái online trong Firestore
+    updateAdminStatus(true);
+    toast.success("Admin đã chuyển sang trạng thái Online.");
   };
 
   const handleOfflineClick = () => {
     setIsOnline(false);
     setStatus("Đang offline");
-    updateAdminStatus(false);  // Cập nhật trạng thái offline trong Firestore
+    updateAdminStatus(false);
+    toast.success("Admin đã chuyển sang trạng thái Offline.");
   };
 
   const handleLogoutClick = async () => {
@@ -110,41 +114,46 @@ const AdminPage = () => {
   if (loading) return <div className="text-center p-4">Đang tải...</div>;  // Hiển thị khi trang đang tải
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">Admin Dashboard</h1>
-      <p className="text-lg text-gray-700 mb-4">{status}</p>
-      <div className="space-x-4 mb-6">
-        {/* Hai nút online và offline */}
-        <button
-          onClick={handleOnlineClick}
-          disabled={isOnline}
-          className="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg disabled:bg-gray-400 transition duration-300"
-        >
-          Chế độ Online
-        </button>
-        <button
-          onClick={handleOfflineClick}
-          disabled={!isOnline}
-          className="px-6 py-2 bg-red-500 text-white font-semibold rounded-lg disabled:bg-gray-400 transition duration-300"
-        >
-         Chế độ Offline
-        </button>
-      </div>
-      {/* Nút logout */}
-      <div>
-        <button
-          onClick={handleLogoutClick}
-          className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300"
-        >
-          Logout
-        </button>
-      </div>
+    <>
+      <Head>
+        <title>Quản lý admin</title> {/* Thay đổi title ở đây */}
+      </Head>
+      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center py-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-6">Admin Dashboard</h1>
+        <p className="text-lg text-gray-700 mb-4">{status}</p>
+        <div className="space-x-4 mb-6">
+          {/* Hai nút online và offline */}
+          <button
+            onClick={handleOnlineClick}
+            disabled={isOnline}
+            className="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg disabled:bg-gray-400 transition duration-300"
+          >
+            Chế độ Online
+          </button>
+          <button
+            onClick={handleOfflineClick}
+            disabled={!isOnline}
+            className="px-6 py-2 bg-red-500 text-white font-semibold rounded-lg disabled:bg-gray-400 transition duration-300"
+          >
+            Chế độ Offline
+          </button>
+        </div>
+        {/* Nút logout */}
+        <div>
+          <button
+            onClick={handleLogoutClick}
+            className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300"
+          >
+            Đăng xuất
+          </button>
+        </div>
 
-      {/* Nút Quay về trang chủ */}
-      <Link href="/" className="absolute top-5 left-7 text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-        Quay về trang chủ
-      </Link>
-    </div>
+        {/* Nút Quay về trang chủ */}
+        <Link href="/" className="absolute top-5 left-7 text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+          Quay về trang chủ
+        </Link>
+      </div>
+    </>
   );
 };
 

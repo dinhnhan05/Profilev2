@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.13.0",
     "@fancyapps/ui": "^5.0.36",
     "@firebasegen/default-connector": "file:dataconnect-generated/js/default-connector",
+    "@hcaptcha/react-hcaptcha": "^1.11.0",
     "@lottiefiles/dotlottie-react": "^0.9.1",
     "@next/third-parties": "^14.2.15",
     "@radix-ui/react-dialog": "^1.1.1",
