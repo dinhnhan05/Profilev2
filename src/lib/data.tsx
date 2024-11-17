@@ -43,7 +43,7 @@ export const SOCIAL_LINKS = [
   {
     icon: Facebook,
     url:
-"https://www.facebook.com/share/nzTd847soCesjAUS/"      
+"https://www.facebook.com/kiryosdinhnhan"      
   },
   {
     icon: Instagram,
