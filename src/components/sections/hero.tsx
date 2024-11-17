@@ -32,7 +32,7 @@ const HeroSection = () => {
         <div className="flex items-center justify-center md:order-last md:flex-grow md:justify-end">
           <ScrollAnimation>
             <Reavel>
-              <div className="relative h-[300px] w-[280px] md:h-[360px] md:w-[320px]">
+              <div className="relative h-[300px] w-[280px] md:h-[360px] md:w-[320px] cursor-pointer">
                 <a href="/images/header_image.jpeg" data-fancybox="gallery">
                   <Image
                     src={avtProfile}

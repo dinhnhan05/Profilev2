@@ -33,7 +33,7 @@ const AboutMeSection = () => {
         {/* Image */}
         <div className="flex justify-center md:order-first md:justify-end">
           <Reavel>
-            <div className="relative h-[380px] w-[320px] md:h-[460px] md:w-[380px] lg:h-[520px] lg:w-[440px]">
+            <div className="relative h-[380px] w-[320px] md:h-[460px] md:w-[380px] lg:h-[520px] lg:w-[440px] cursor-pointer">
               <a href="/images/about_image.jpeg" data-fancybox="gallery">
                 <Image
                   src={avtProfile}
