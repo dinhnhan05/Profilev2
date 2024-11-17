@@ -139,12 +139,16 @@ const LoginPage = () => {
           </div>
 
           {/* hCaptcha */}
-          <div className="mb-4 hcaptcha-container">
-            <HCaptcha
-              sitekey="c22061b6-26f6-4976-9b0a-4f0af244320c" // Thay bằng site key của bạn
-              onVerify={onCaptchaVerify}
-            />
+          <div className="mb-4 w-full flex justify-center">
+            {/* Bao bọc HCaptcha trong div để áp dụng className */}
+            <div className="hcaptcha-wrapper max-w-full">
+              <HCaptcha
+                sitekey="c22061b6-26f6-4976-9b0a-4f0af244320c"
+                onVerify={onCaptchaVerify}
+              />
+            </div>
           </div>
+
 
           <button
             type="submit"

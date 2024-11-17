@@ -6,6 +6,8 @@ import AboutMeSection from "@/components/sections/about-me";
 import SkillsSection from "@/components/sections/skills";
 import { motion, useScroll } from "framer-motion";
 // import ProjectSection from '@/components/sections/project';
+import BackToTopButton from "@/components/BackToTopButton";  // Import BackToTopButton
+
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
@@ -19,6 +21,7 @@ export default function Home() {
       <AboutMeSection />
       <SkillsSection />
       {/* <ProjectSection />  */}
+      <BackToTopButton />
       <ContactSection />
     </>
   );

@@ -31,3 +31,75 @@
   --app-gray-900: 249 250 251;
   --app-gray-950: 255 255 255;
 }
+
+/* Nút mặc định */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 32px; /* Khoảng cách từ dưới lên */
+  right: 32px;  /* Khoảng cách từ phải sang */
+  width: 60px;  /* Đảm bảo kích thước nút là hình tròn */
+  height: 60px; /* Đảm bảo nút có chiều cao tương đương */
+  display: flex; /* Dùng flex để căn giữa icon */
+  justify-content: center; /* Căn giữa icon theo chiều ngang */
+  align-items: center; /* Căn giữa icon theo chiều dọc */
+  background-color: #1e40af; /* Màu nền */
+  color: white;
+  border-radius: 50%; /* Đảm bảo nút có hình tròn */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ cho nút */
+  transition: all 0.3s ease-in-out; /* Thêm hiệu ứng chuyển động */
+  z-index: 50; /* Đảm bảo nút luôn xuất hiện trên cùng */
+  opacity: 0; /* Ban đầu ẩn đi */
+  pointer-events: none; /* Đảm bảo nút không nhận sự kiện khi ẩn */
+  cursor: pointer;
+  transform: scale(0.8); /* Ban đầu nút có kích thước nhỏ */
+  text-shadow: none; /* Ban đầu không có hiệu ứng text-shadow */
+  outline: 1px solid rgba(255, 255, 255, 0.5); /* Đường viền ban đầu */
+  outline-offset: 0; /* Khoảng cách từ viền đến nút */
+}
+
+.back-to-top-btn.show {
+  opacity: 1; /* Khi nút được hiển thị */
+  pointer-events: auto; /* Khi nút hiện, sẽ nhận sự kiện */
+  transform: scale(1); /* Khi nút hiển thị, kích thước tăng lên */
+}
+
+/* Khi hover vào nút */
+.back-to-top-btn:hover {
+  background-color: #3b82f6; /* Màu nền khi hover */
+  border: 1px solid #fff; /* Đổi viền khi hover */
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2); /* Thêm bóng khi hover */
+  outline-color: rgba(255, 255, 255, 0); /* Ẩn outline khi hover */
+  outline-offset: 15px; /* Thêm khoảng cách từ viền khi hover */
+  text-shadow: 1px 1px 2px #427388; /* Thêm text shadow khi hover */
+  animation: pulseEffect 2s infinite; /* Thêm hiệu ứng nhấp nháy */
+}
+
+/* Khi giữ chuột vào nút (click) */
+.back-to-top-btn:active {
+  background-color: #2563eb; /* Màu nền khi nhấn giữ */
+  box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.7), 0 0 30px rgba(255, 255, 255, 0.4); /* Bóng đổ mạnh hơn khi nhấn giữ */
+  outline-color: rgba(255, 255, 255, 0.6); /* Đổi outline khi nhấn giữ */
+  outline-offset: 20px; /* Thêm khoảng cách khi nhấn giữ */
+  text-shadow: 2px 2px 4px #a7c8f2; /* Thêm text shadow mạnh hơn khi nhấn giữ */
+  transform: scale(0.9); /* Kích thước nút giảm khi nhấn giữ */
+}
+
+/* Hiệu ứng nhấp nháy (pulse) khi hover */
+@keyframes pulseEffect {
+  0% {
+    transform: scale(1); /* Không thay đổi kích thước */
+  }
+  50% {
+    transform: scale(1.1); /* Phóng to một chút */
+  }
+  100% {
+    transform: scale(1); /* Trở lại kích thước ban đầu */
+  }
+}
+
+.hcaptcha-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
