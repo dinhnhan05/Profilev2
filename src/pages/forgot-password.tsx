@@ -43,26 +43,26 @@ const ForgotPasswordPage = () => {
 
     // Hiển thị toast.promise với trạng thái
     await toast.promise(
-      new Promise(async (resolve, reject) => {
-        try {
-          await sendPasswordResetEmail(auth, email);
-          resolve("Yêu cầu đặt lại mật khẩu đã được gửi. Vui lòng kiểm tra email.");
-        } catch (error: unknown) {
-          if (error instanceof Error) {
-            reject("Không thể gửi yêu cầu đặt lại mật khẩu: " + error.message);
-          } else {
-            reject("Đã xảy ra lỗi không xác định.");
-          }
-        }
-      }),
-      {
-        loading: "Đang gửi yêu cầu...",
-        success: (message:string) => {
-          setEmail(""); // Xóa email khi thành công
-          return message;
-        },
-        error: (error) => error,
+  new Promise<string>(async (resolve, reject) => {  // Chỉ định rõ kiểu Promise là string
+    try {
+      await sendPasswordResetEmail(auth, email);
+      resolve("Yêu cầu đặt lại mật khẩu đã được gửi. Vui lòng kiểm tra email.");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        reject("Không thể gửi yêu cầu đặt lại mật khẩu: " + error.message);
+      } else {
+        reject("Đã xảy ra lỗi không xác định.");
       }
+    }
+  }),
+  {
+    loading: "Đang gửi yêu cầu...",
+    success: (message: string) => {
+      setEmail(""); // Xóa email khi thành công
+      return message;
+    },
+    error: (error) => error,
+  }
     );
 
     setLoading(false);
