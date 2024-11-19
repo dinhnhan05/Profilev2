@@ -57,7 +57,7 @@ const ForgotPasswordPage = () => {
       }),
       {
         loading: "Đang gửi yêu cầu...",
-        success: (message) => {
+        success: (message:string) => {
           setEmail(""); // Xóa email khi thành công
           return message;
         },
