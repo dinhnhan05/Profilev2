@@ -43,16 +43,26 @@ export default function Home() {
       <BackToTopButton />
       <ContactSection />
       <ToastContainer
-      position="top-center"
-      theme="light"
-      autoClose={3000}
-      hideProgressBar
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
+        position="top-center"
+        theme="light"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{
+          position: 'fixed',  // Đảm bảo toast luôn nằm cố định
+            top: '20px',  // Khoảng cách từ trên
+            left: '50%',  // Đặt ở giữa theo chiều ngang
+            transform: 'translateX(-50%)',  // Dịch chuyển về giữa
+            maxWidth: '400px', // Giới hạn chiều rộng tối đa của toast
+            width: 'auto', // Chiều dài tự động theo nội dung
+            whiteSpace: 'nowrap',
+
+        }}
       />
     </>
   );
