@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect } from "react"; // Chỉ import useEffect từ React
+import { ToastContainer, toast } from "material-react-toastify"; // Import toast components
+import "material-react-toastify/dist/ReactToastify.css"; // Import styles
 import HeroSection from "@/components/sections/hero";
 import ContactSection from "@/components/sections/contact";
 import AboutMeSection from "@/components/sections/about-me";
@@ -8,9 +11,25 @@ import { motion, useScroll } from "framer-motion";
 // import ProjectSection from '@/components/sections/project';
 import BackToTopButton from "@/components/BackToTopButton";  // Import BackToTopButton
 
-
 export default function Home() {
   const { scrollYProgress } = useScroll();
+
+  // Trigger toast promise when the page loads
+  useEffect(() => {
+    toast.promise(
+      new Promise((resolve) =>
+        setTimeout(() => {
+          resolve("Hoàn thành, đã tải xong!");
+        }, 5000)
+      ),
+      {
+        pending: "Đang tải dữ liệu...",
+        success: "Hoàn thành, đã tải xong!",
+        error: "Lỗi tải dữ liệu.",
+      }
+    );
+  }, []);
+
   return (
     <>
       <motion.div
@@ -23,6 +42,18 @@ export default function Home() {
       {/* <ProjectSection />  */}
       <BackToTopButton />
       <ContactSection />
+      <ToastContainer
+      position="top-center"
+      theme="light"
+      autoClose={3000}
+      hideProgressBar
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
     </>
   );
 }

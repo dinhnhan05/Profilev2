@@ -96,6 +96,9 @@ Bạn có thể kiểm tra [repository GitHub của Next.js](https://github.com/
   - **Cải tiến giao diện người dùng**: Giao diện trang đăng nhập đã được tối ưu hóa với các thành phần như hiển thị mật khẩu, thông báo lỗi đẹp mắt, và xác minh CAPTCHA qua hCaptcha.
   - **Tích hợp hCaptcha**: Đã thêm hCaptcha vào trang đăng nhập để bảo vệ khỏi các bot tự động.
   - **Cập nhật cấu hình Firebase**: Cấu hình Firebase đã được tối ưu hóa, bao gồm Firebase Database và Firestore để lưu trữ trạng thái admin.
+  - **Thêm toast trong trang đăng nhập và quên mật khẩu**: Thêm một vài toast lỗi và ngăn spam toast
+  - **Thêm nút cuộn lên đầu trang khi lướt xuống dưới**
+  - **Thêm toast mỗi khi vào trang web**
 - <span style="color: red; font-size: 30px;  font-style: italic;">**Dự định sắp tới sẽ thêm một vài tính năng vào trang admin❗**</span>
 
 ---

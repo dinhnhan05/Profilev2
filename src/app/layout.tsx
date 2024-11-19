@@ -9,7 +9,7 @@ import { Analytics } from "@vercel/analytics/react"; // Import Vercel Analytics
 
 const title = "Profile - Đình Nhân";
 const description = "Trang thông tin cá nhân của tôi";
-const url = "https://example.com";
+const url = "https://dinhnhan.link";
 
 export const metadata: Metadata = {
   metadataBase: new URL(url),
